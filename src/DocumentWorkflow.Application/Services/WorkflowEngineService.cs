@@ -6,21 +6,20 @@ using DocumentWorkflow.Domain.Entities;
 using DocumentWorkflow.Domain.Interfaces;
 
 namespace DocumentWorkflow.Application.Services;
-
 public class WorkflowEngineService : IWorkflowEngineService
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IActivityFactory _activityFactory;
-    private readonly ITaskConfigurationService _taskConfigService;
+    //private readonly ITaskConfigurationService _taskConfigService;
 
     public WorkflowEngineService(
         IUnitOfWork unitOfWork, 
-        IActivityFactory activityFactory,
-        ITaskConfigurationService taskConfigService)
+        IActivityFactory activityFactory)
+    //    ITaskConfigurationService taskConfigService)
     {
         _unitOfWork = unitOfWork;
         _activityFactory = activityFactory;
-        _taskConfigService = taskConfigService;
+       // _taskConfigService = taskConfigService;
     }
 
     public async Task<WorkflowInstanceDto> StartWorkflowAsync(Guid workflowDefinitionId, Guid documentId)
@@ -244,25 +243,25 @@ public class WorkflowEngineService : IWorkflowEngineService
         if (document == null) return;
 
         IWorkflowActivity? activity = null;
-        
-        // Option 1: Check if task is configured in database (user-mapped)
-        var taskConfig = await _taskConfigService.GetConfigurationAsync(
-            instance.WorkflowDefinitionId, 
-            instance.CurrentStepId);
-        
-        if (taskConfig != null)
-        {
-            // User configured this task - use their mapping
-            activity = _activityFactory.CreateActivity(taskConfig.ActivityType);
-            Console.WriteLine($"[WorkflowEngine] Using configured activity '{taskConfig.ActivityType}' for task '{taskName}'");
-        }
-        else
-        {
-            // Option 2: Fall back to name-based matching
-            activity = _activityFactory.CreateActivity(taskName);
-            Console.WriteLine($"[WorkflowEngine] Using name-based activity for task '{taskName}'");
-        }
-        
+
+        //// Option 1: Check if task is configured in database (user-mapped)
+        //var taskConfig = await _taskConfigService.GetConfigurationAsync(
+        //    instance.WorkflowDefinitionId, 
+        //    instance.CurrentStepId);
+
+        //if (taskConfig != null)
+        //{
+        //    // User configured this task - use their mapping
+        //    activity = _activityFactory.CreateActivity(taskConfig.ActivityType);
+        //    Console.WriteLine($"[WorkflowEngine] Using configured activity '{taskConfig.ActivityType}' for task '{taskName}'");
+        //}
+        //else
+        //{
+        // Option 2: Fall back to name-based matching
+        activity = _activityFactory.CreateActivity(taskName);
+        Console.WriteLine($"[WorkflowEngine] Using name-based activity for task '{taskName}'");
+        //}
+
         if (activity != null)
         {
             // Strategy Pattern: Execute the activity (polymorphism)
