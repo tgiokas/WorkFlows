@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "DocumentWorkflow.Application/1.0.0": {
+        "dependencies": {
+          "DocumentWorkflow.Domain": "1.0.0"
+        },
+        "runtime": {
+          "DocumentWorkflow.Application.dll": {}
+        }
+      },
+      "DocumentWorkflow.Domain/1.0.0": {
+        "runtime": {
+          "DocumentWorkflow.Domain.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "DocumentWorkflow.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DocumentWorkflow.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

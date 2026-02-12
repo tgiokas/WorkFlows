@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+-
+<bpmn:definitions targetNamespace="http://bpmn.io/schema/bpmn" id="Definitions_Simple" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL">
+
+
+-
+    <bpmn:process id="SimpleApprovalProcess" isExecutable="true" name="Simple Document Approval">
+
+
+-
+        <bpmn:startEvent id="StartEvent_1" name="Submit">
+            <bpmn:outgoing>Flow_1</bpmn:outgoing>
+        </bpmn:startEvent>
+
+
+-
+        <bpmn:serviceTask id="Task_Validate" name="Validate Document">
+            <bpmn:incoming>Flow_1</bpmn:incoming>
+            <bpmn:outgoing>Flow_2</bpmn:outgoing>
+        </bpmn:serviceTask>
+
+
+-
+        <bpmn:userTask id="Task_Approve" name="Manager Approval">
+            <bpmn:incoming>Flow_2</bpmn:incoming>
+            <bpmn:outgoing>Flow_3</bpmn:outgoing>
+        </bpmn:userTask>
+
+
+-
+        <bpmn:serviceTask id="Task_Publish" name="Publish Document">
+            <bpmn:incoming>Flow_3</bpmn:incoming>
+            <bpmn:outgoing>Flow_4</bpmn:outgoing>
+        </bpmn:serviceTask>
+
+
+-
+        <bpmn:endEvent id="EndEvent_1" name="Complete">
+            <bpmn:incoming>Flow_4</bpmn:incoming>
+        </bpmn:endEvent>
+        <bpmn:sequenceFlow id="Flow_1" targetRef="Task_Validate" sourceRef="StartEvent_1"/>
+        <bpmn:sequenceFlow id="Flow_2" targetRef="Task_Approve" sourceRef="Task_Validate"/>
+        <bpmn:sequenceFlow id="Flow_3" targetRef="Task_Publish" sourceRef="Task_Approve"/>
+        <bpmn:sequenceFlow id="Flow_4" targetRef="EndEvent_1" sourceRef="Task_Publish"/>
+    </bpmn:process>
+
+
+-
+    <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+
+
+-
+        <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="SimpleApprovalProcess">
+
+
+-
+            <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+                <dc:Bounds height="36" width="36" y="159" x="179"/>
+
+
+-
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds height="14" width="35" y="202" x="180"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+
+
+-
+            <bpmndi:BPMNShape id="Task_Validate_di" bpmnElement="Task_Validate">
+                <dc:Bounds height="80" width="100" y="137" x="270"/>
+            </bpmndi:BPMNShape>
+
+
+-
+            <bpmndi:BPMNShape id="Task_Approve_di" bpmnElement="Task_Approve">
+                <dc:Bounds height="80" width="100" y="137" x="430"/>
+            </bpmndi:BPMNShape>
+
+
+-
+            <bpmndi:BPMNShape id="Task_Publish_di" bpmnElement="Task_Publish">
+                <dc:Bounds height="80" width="100" y="137" x="590"/>
+            </bpmndi:BPMNShape>
+
+
+-
+            <bpmndi:BPMNShape id="EndEvent_1_di" bpmnElement="EndEvent_1">
+                <dc:Bounds height="36" width="36" y="159" x="752"/>
+
+
+-
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds height="14" width="55" y="202" x="743"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+
+
+-
+            <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1">
+                <di:waypoint y="177" x="215"/>
+                <di:waypoint y="177" x="270"/>
+            </bpmndi:BPMNEdge>
+
+
+-
+            <bpmndi:BPMNEdge id="Flow_2_di" bpmnElement="Flow_2">
+                <di:waypoint y="177" x="370"/>
+                <di:waypoint y="177" x="430"/>
+            </bpmndi:BPMNEdge>
+
+
+-
+            <bpmndi:BPMNEdge id="Flow_3_di" bpmnElement="Flow_3">
+                <di:waypoint y="177" x="530"/>
+                <di:waypoint y="177" x="590"/>
+            </bpmndi:BPMNEdge>
+
+
+-
+            <bpmndi:BPMNEdge id="Flow_4_di" bpmnElement="Flow_4">
+                <di:waypoint y="177" x="690"/>
+                <di:waypoint y="177" x="752"/>
+            </bpmndi:BPMNEdge>
+        </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+</bpmn:definitions>

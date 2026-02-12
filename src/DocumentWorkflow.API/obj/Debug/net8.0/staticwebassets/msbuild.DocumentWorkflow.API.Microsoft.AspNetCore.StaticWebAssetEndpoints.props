@@ -1,0 +1,28 @@
+﻿<Project>
+  <ItemGroup>
+    <StaticWebAssetEndpoint Include="_content/DocumentWorkflow.API/index.hpfh1ccor6.html">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\index.html'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"hpfh1ccor6"},{"Name":"integrity","Value":"sha256-xXpzj5NFaxoJe95BVBMiM9mPjfl/olAz8UrTM6orUoU="},{"Name":"label","Value":"_content/DocumentWorkflow.API/index.html"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"16558"},{"Name":"Content-Type","Value":"text/html"},{"Name":"ETag","Value":"\u0022xXpzj5NFaxoJe95BVBMiM9mPjfl/olAz8UrTM6orUoU=\u0022"},{"Name":"Last-Modified","Value":"Wed, 11 Feb 2026 11:05:51 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/DocumentWorkflow.API/index.html">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\index.html'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-xXpzj5NFaxoJe95BVBMiM9mPjfl/olAz8UrTM6orUoU="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"16558"},{"Name":"Content-Type","Value":"text/html"},{"Name":"ETag","Value":"\u0022xXpzj5NFaxoJe95BVBMiM9mPjfl/olAz8UrTM6orUoU=\u0022"},{"Name":"Last-Modified","Value":"Wed, 11 Feb 2026 11:05:51 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/DocumentWorkflow.API/workflow-designer.html">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\workflow-designer.html'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-KjOEMMjKmjnx9kXg92AKh6TtFlR48r1T/4IpBXPNu7U="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"11706"},{"Name":"Content-Type","Value":"text/html"},{"Name":"ETag","Value":"\u0022KjOEMMjKmjnx9kXg92AKh6TtFlR48r1T/4IpBXPNu7U=\u0022"},{"Name":"Last-Modified","Value":"Tue, 10 Feb 2026 19:21:20 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/DocumentWorkflow.API/workflow-designer.qve6cw7vgj.html">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\workflow-designer.html'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"qve6cw7vgj"},{"Name":"integrity","Value":"sha256-KjOEMMjKmjnx9kXg92AKh6TtFlR48r1T/4IpBXPNu7U="},{"Name":"label","Value":"_content/DocumentWorkflow.API/workflow-designer.html"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"11706"},{"Name":"Content-Type","Value":"text/html"},{"Name":"ETag","Value":"\u0022KjOEMMjKmjnx9kXg92AKh6TtFlR48r1T/4IpBXPNu7U=\u0022"},{"Name":"Last-Modified","Value":"Tue, 10 Feb 2026 19:21:20 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+  </ItemGroup>
+</Project>

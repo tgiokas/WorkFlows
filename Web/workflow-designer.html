@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workflow Designer - Document Management System</title>
+    
+    <!-- bpmn-js CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/bpmn-js@17.0.2/dist/assets/diagram-js.css">
+    <link rel="stylesheet" href="https://unpkg.com/bpmn-js@17.0.2/dist/assets/bpmn-js.css">
+    <link rel="stylesheet" href="https://unpkg.com/bpmn-js@17.0.2/dist/assets/bpmn-font/css/bpmn-embedded.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .header {
+            background: #1976d2;
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+        
+        .toolbar {
+            background: white;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .btn {
+            padding: 0.5rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background: #1976d2;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #1565c0;
+        }
+        
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+        
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+        
+        .btn-success {
+            background: #4caf50;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #45a049;
+        }
+        
+        input[type="text"] {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 300px;
+        }
+        
+        #canvas {
+            height: calc(100vh - 140px);
+            background: white;
+            border: 1px solid #ddd;
+            margin: 1rem 2rem;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .status {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: auto;
+        }
+        
+        .status.success {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .status.error {
+            background: #ffebee;
+            color: #c62828;
+        }
+        
+        .workflow-selector {
+            margin-left: 2rem;
+        }
+        
+        select {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📋 Workflow Designer - Document Management System</h1>
+    </div>
+    
+    <div class="toolbar">
+        <button class="btn btn-primary" onclick="createNewWorkflow()">
+            ➕ New Workflow
+        </button>
+        
+        <div class="workflow-selector">
+            <select id="workflowList" onchange="loadSelectedWorkflow()">
+                <option value="">-- Load Existing Workflow --</option>
+            </select>
+        </div>
+        
+        <input type="text" id="workflowName" placeholder="Workflow Name (e.g., Invoice Approval)" />
+        
+        <button class="btn btn-success" onclick="saveWorkflow()">
+            💾 Save Workflow
+        </button>
+        
+        <button class="btn btn-secondary" onclick="exportBPMN()">
+            📥 Download XML
+        </button>
+        
+        <button class="btn btn-secondary" onclick="importBPMN()">
+            📤 Import XML
+        </button>
+        
+        <div id="status" class="status" style="display: none;"></div>
+    </div>
+    
+    <div id="canvas"></div>
+    
+    <input type="file" id="fileInput" style="display: none;" accept=".bpmn,.xml" onchange="handleFileUpload(event)">
+    
+    <!-- bpmn-js Library -->
+    <script src="https://unpkg.com/bpmn-js@17.0.2/dist/bpmn-modeler.development.js"></script>
+    
+    <script>
+        // Configuration - Update these with your API endpoints
+        const API_BASE_URL = '/api/workflows'; // Your ASP.NET API endpoint
+        
+        // Initialize BPMN Modeler
+        const modeler = new BpmnJS({
+            container: '#canvas',
+            keyboard: {
+                bindTo: document
+            }
+        });
+        
+        // Empty BPMN diagram template
+        const emptyBpmn = `<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" 
+                   xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" 
+                   xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" 
+                   id="Definitions_1" 
+                   targetNamespace="http://bpmn.io/schema/bpmn">
+  <bpmn:process id="Process_1" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1"/>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="159" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>`;
+        
+        // Load empty diagram on start
+        async function createNewWorkflow() {
+            try {
+                await modeler.importXML(emptyBpmn);
+                document.getElementById('workflowName').value = '';
+                showStatus('New workflow created', 'success');
+            } catch (err) {
+                console.error('Error creating workflow:', err);
+                showStatus('Error creating workflow', 'error');
+            }
+        }
+        
+        // Save workflow to backend
+        async function saveWorkflow() {
+            const workflowName = document.getElementById('workflowName').value.trim();
+            
+            if (!workflowName) {
+                alert('Please enter a workflow name');
+                return;
+            }
+            
+            try {
+                const { xml } = await modeler.saveXML({ format: true });
+                
+                // Send to backend API
+                const response = await fetch(`${API_BASE_URL}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name: workflowName,
+                        bpmnXml: xml,
+                        documentType: 'General', // Could be dynamic
+                    })
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    showStatus('✓ Workflow saved successfully!', 'success');
+                    await loadWorkflowList(); // Refresh the list
+                } else {
+                    showStatus('✗ Error saving workflow', 'error');
+                }
+            } catch (err) {
+                console.error('Error saving workflow:', err);
+                showStatus('✗ Error saving workflow', 'error');
+            }
+        }
+        
+        // Load list of workflows from backend
+        async function loadWorkflowList() {
+            try {
+                const response = await fetch(`${API_BASE_URL}`);
+                const workflows = await response.json();
+                
+                const select = document.getElementById('workflowList');
+                select.innerHTML = '<option value="">-- Load Existing Workflow --</option>';
+                
+                workflows.forEach(workflow => {
+                    const option = document.createElement('option');
+                    option.value = workflow.id;
+                    option.textContent = `${workflow.name} (v${workflow.version})`;
+                    option.dataset.xml = workflow.bpmnXml;
+                    select.appendChild(option);
+                });
+            } catch (err) {
+                console.error('Error loading workflows:', err);
+            }
+        }
+        
+        // Load selected workflow
+        async function loadSelectedWorkflow() {
+            const select = document.getElementById('workflowList');
+            const selectedOption = select.options[select.selectedIndex];
+            
+            if (!selectedOption.value) return;
+            
+            try {
+                const workflowId = selectedOption.value;
+                const response = await fetch(`${API_BASE_URL}/${workflowId}`);
+                const workflow = await response.json();
+                
+                await modeler.importXML(workflow.bpmnXml);
+                document.getElementById('workflowName').value = workflow.name;
+                showStatus('Workflow loaded', 'success');
+            } catch (err) {
+                console.error('Error loading workflow:', err);
+                showStatus('Error loading workflow', 'error');
+            }
+        }
+        
+        // Export BPMN XML
+        async function exportBPMN() {
+            try {
+                const { xml } = await modeler.saveXML({ format: true });
+                const blob = new Blob([xml], { type: 'application/xml' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${document.getElementById('workflowName').value || 'workflow'}.bpmn`;
+                a.click();
+                URL.revokeObjectURL(url);
+                showStatus('BPMN exported', 'success');
+            } catch (err) {
+                console.error('Error exporting:', err);
+            }
+        }
+        
+        // Import BPMN XML
+        function importBPMN() {
+            document.getElementById('fileInput').click();
+        }
+        
+        async function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                try {
+                    await modeler.importXML(e.target.result);
+                    showStatus('BPMN imported', 'success');
+                } catch (err) {
+                    console.error('Error importing:', err);
+                    showStatus('Error importing BPMN', 'error');
+                }
+            };
+            reader.readAsText(file);
+        }
+        
+        // Show status message
+        function showStatus(message, type) {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = `status ${type}`;
+            status.style.display = 'block';
+            
+            setTimeout(() => {
+                status.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Initialize
+        (async function() {
+            await createNewWorkflow();
+            await loadWorkflowList();
+        })();
+    </script>
+</body>
+</html>

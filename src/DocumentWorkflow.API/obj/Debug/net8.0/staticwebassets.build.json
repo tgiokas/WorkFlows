@@ -1,0 +1,228 @@
+{
+  "Version": 1,
+  "Hash": "AhHr0emHtyQREqfgYD+Oxb071TiGeetdg2AubamCFjY=",
+  "Source": "DocumentWorkflow.API",
+  "BasePath": "_content/DocumentWorkflow.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "DocumentWorkflow.API\\wwwroot",
+      "Source": "DocumentWorkflow.API",
+      "ContentRoot": "C:\\Dev\\MSNET\\DocumentWorkflow\\src\\DocumentWorkflow.API\\wwwroot\\",
+      "BasePath": "_content/DocumentWorkflow.API",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Dev\\MSNET\\DocumentWorkflow\\src\\DocumentWorkflow.API\\wwwroot\\index.html",
+      "SourceId": "DocumentWorkflow.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Dev\\MSNET\\DocumentWorkflow\\src\\DocumentWorkflow.API\\wwwroot\\",
+      "BasePath": "_content/DocumentWorkflow.API",
+      "RelativePath": "index#[.{fingerprint}]?.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "hpfh1ccor6",
+      "Integrity": "xXpzj5NFaxoJe95BVBMiM9mPjfl/olAz8UrTM6orUoU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\index.html"
+    },
+    {
+      "Identity": "C:\\Dev\\MSNET\\DocumentWorkflow\\src\\DocumentWorkflow.API\\wwwroot\\workflow-designer.html",
+      "SourceId": "DocumentWorkflow.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Dev\\MSNET\\DocumentWorkflow\\src\\DocumentWorkflow.API\\wwwroot\\",
+      "BasePath": "_content/DocumentWorkflow.API",
+      "RelativePath": "workflow-designer#[.{fingerprint}]?.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "qve6cw7vgj",
+      "Integrity": "KjOEMMjKmjnx9kXg92AKh6TtFlR48r1T/4IpBXPNu7U=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\workflow-designer.html"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "index.hpfh1ccor6.html",
+      "AssetFile": "C:\\Dev\\MSNET\\DocumentWorkflow\\src\\DocumentWorkflow.API\\wwwroot\\index.html",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "16558"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"xXpzj5NFaxoJe95BVBMiM9mPjfl/olAz8UrTM6orUoU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 11 Feb 2026 11:05:51 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "hpfh1ccor6"
+        },
+        {
+          "Name": "label",
+          "Value": "index.html"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-xXpzj5NFaxoJe95BVBMiM9mPjfl/olAz8UrTM6orUoU="
+        }
+      ]
+    },
+    {
+      "Route": "index.html",
+      "AssetFile": "C:\\Dev\\MSNET\\DocumentWorkflow\\src\\DocumentWorkflow.API\\wwwroot\\index.html",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "16558"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"xXpzj5NFaxoJe95BVBMiM9mPjfl/olAz8UrTM6orUoU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 11 Feb 2026 11:05:51 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-xXpzj5NFaxoJe95BVBMiM9mPjfl/olAz8UrTM6orUoU="
+        }
+      ]
+    },
+    {
+      "Route": "workflow-designer.html",
+      "AssetFile": "C:\\Dev\\MSNET\\DocumentWorkflow\\src\\DocumentWorkflow.API\\wwwroot\\workflow-designer.html",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "11706"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KjOEMMjKmjnx9kXg92AKh6TtFlR48r1T/4IpBXPNu7U=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 10 Feb 2026 19:21:20 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-KjOEMMjKmjnx9kXg92AKh6TtFlR48r1T/4IpBXPNu7U="
+        }
+      ]
+    },
+    {
+      "Route": "workflow-designer.qve6cw7vgj.html",
+      "AssetFile": "C:\\Dev\\MSNET\\DocumentWorkflow\\src\\DocumentWorkflow.API\\wwwroot\\workflow-designer.html",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "11706"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KjOEMMjKmjnx9kXg92AKh6TtFlR48r1T/4IpBXPNu7U=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 10 Feb 2026 19:21:20 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "qve6cw7vgj"
+        },
+        {
+          "Name": "label",
+          "Value": "workflow-designer.html"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-KjOEMMjKmjnx9kXg92AKh6TtFlR48r1T/4IpBXPNu7U="
+        }
+      ]
+    }
+  ]
+}

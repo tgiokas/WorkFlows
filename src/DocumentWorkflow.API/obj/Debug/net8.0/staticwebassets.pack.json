@@ -1,0 +1,33 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Dev\\MSNET\\DocumentWorkflow\\src\\DocumentWorkflow.API\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "C:\\Dev\\MSNET\\DocumentWorkflow\\src\\DocumentWorkflow.API\\wwwroot\\workflow-designer.html",
+      "PackagePath": "staticwebassets\\workflow-designer.html"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.DocumentWorkflow.API.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.DocumentWorkflow.API.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.DocumentWorkflow.API.props",
+      "PackagePath": "build\\DocumentWorkflow.API.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.DocumentWorkflow.API.props",
+      "PackagePath": "buildMultiTargeting\\DocumentWorkflow.API.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.DocumentWorkflow.API.props",
+      "PackagePath": "buildTransitive\\DocumentWorkflow.API.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

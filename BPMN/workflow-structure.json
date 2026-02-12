@@ -1,0 +1,193 @@
+{
+  "workflowId": "DocumentApprovalProcess",
+  "name": "Document Approval Workflow",
+  "version": "1.0",
+  "steps": [
+    {
+      "id": "StartEvent_SubmitForApproval",
+      "type": "StartEvent",
+      "name": "Submit for Approval",
+      "next": "Task_ValidateSubmission"
+    },
+    {
+      "id": "Task_ValidateSubmission",
+      "type": "ServiceTask",
+      "name": "Validate Submission",
+      "implementation": "ValidateSubmissionActivity",
+      "next": "Gateway_IsValid"
+    },
+    {
+      "id": "Gateway_IsValid",
+      "type": "ExclusiveGateway",
+      "name": "Valid?",
+      "conditions": [
+        {
+          "condition": "${!valid}",
+          "next": "EndEvent_ValidationFailed"
+        },
+        {
+          "condition": "${valid}",
+          "next": "Task_ResolveApprovalPolicy"
+        }
+      ]
+    },
+    {
+      "id": "EndEvent_ValidationFailed",
+      "type": "EndEvent",
+      "name": "Rejected (Validation Failed)"
+    },
+    {
+      "id": "Task_ResolveApprovalPolicy",
+      "type": "ServiceTask",
+      "name": "Resolve Approval Policy & Approvers",
+      "implementation": "ResolveApprovalPolicyActivity",
+      "next": "Task_CreateApprovalTasks"
+    },
+    {
+      "id": "Task_CreateApprovalTasks",
+      "type": "ServiceTask",
+      "name": "Create Approval Task(s)",
+      "implementation": "CreateApprovalTaskActivity",
+      "next": "Task_ReviewAndDecide"
+    },
+    {
+      "id": "Task_ReviewAndDecide",
+      "type": "UserTask",
+      "name": "Review & Decide (Approver)",
+      "assignee": "${currentApprover}",
+      "next": "Gateway_Decision"
+    },
+    {
+      "id": "Gateway_Decision",
+      "type": "ExclusiveGateway",
+      "name": "Decision?",
+      "conditions": [
+        {
+          "condition": "${decision == 'changes'}",
+          "next": "Task_SetStatusChangesRequested"
+        },
+        {
+          "condition": "${decision == 'reject'}",
+          "next": "Task_SetStatusRejected"
+        },
+        {
+          "condition": "${decision == 'approve'}",
+          "next": "Gateway_MoreApprovalsNeeded"
+        }
+      ]
+    },
+    {
+      "id": "Task_SetStatusChangesRequested",
+      "type": "ServiceTask",
+      "name": "Set Status: Changes Requested",
+      "implementation": "SetStatusActivity",
+      "parameters": {
+        "status": "ChangesRequested"
+      },
+      "next": "Task_NotifySubmitterChanges"
+    },
+    {
+      "id": "Task_NotifySubmitterChanges",
+      "type": "ServiceTask",
+      "name": "Notify Submitter",
+      "implementation": "NotifyActivity",
+      "parameters": {
+        "template": "ChangesRequested"
+      },
+      "next": "EndEvent_ChangesRequested"
+    },
+    {
+      "id": "EndEvent_ChangesRequested",
+      "type": "EndEvent",
+      "name": "Changes Requested"
+    },
+    {
+      "id": "Task_SetStatusRejected",
+      "type": "ServiceTask",
+      "name": "Set Status: Rejected",
+      "implementation": "SetStatusActivity",
+      "parameters": {
+        "status": "Rejected"
+      },
+      "next": "Task_NotifySubmitterRejected"
+    },
+    {
+      "id": "Task_NotifySubmitterRejected",
+      "type": "ServiceTask",
+      "name": "Notify Submitter",
+      "implementation": "NotifyActivity",
+      "parameters": {
+        "template": "Rejected"
+      },
+      "next": "EndEvent_Rejected"
+    },
+    {
+      "id": "EndEvent_Rejected",
+      "type": "EndEvent",
+      "name": "Rejected"
+    },
+    {
+      "id": "Gateway_MoreApprovalsNeeded",
+      "type": "ExclusiveGateway",
+      "name": "More Approvals Needed?",
+      "conditions": [
+        {
+          "condition": "${hasMoreApprovers}",
+          "next": "Task_CreateApprovalTasks"
+        },
+        {
+          "condition": "${!hasMoreApprovers}",
+          "next": "Task_PublishDocument"
+        }
+      ]
+    },
+    {
+      "id": "Task_PublishDocument",
+      "type": "ServiceTask",
+      "name": "Publish Document",
+      "implementation": "PublishDocumentActivity",
+      "next": "Task_NotifyStakeholders"
+    },
+    {
+      "id": "Task_NotifyStakeholders",
+      "type": "ServiceTask",
+      "name": "Notify Stakeholders",
+      "implementation": "NotifyActivity",
+      "parameters": {
+        "template": "Published"
+      },
+      "next": "EndEvent_ApprovedAndPublished"
+    },
+    {
+      "id": "EndEvent_ApprovedAndPublished",
+      "type": "EndEvent",
+      "name": "Approved & Published"
+    }
+  ],
+  "activities": {
+    "ValidateSubmissionActivity": {
+      "description": "Validates document submission",
+      "outputs": ["valid"]
+    },
+    "ResolveApprovalPolicyActivity": {
+      "description": "Determines approval routing based on policies",
+      "outputs": ["approvers", "currentApproverIndex", "hasMoreApprovers"]
+    },
+    "CreateApprovalTaskActivity": {
+      "description": "Creates approval task for current approver",
+      "outputs": ["taskId", "currentApprover"]
+    },
+    "SetStatusActivity": {
+      "description": "Updates document status",
+      "parameters": ["status"]
+    },
+    "NotifyActivity": {
+      "description": "Sends notifications to users",
+      "parameters": ["template"]
+    },
+    "PublishDocumentActivity": {
+      "description": "Finalizes and publishes document",
+      "outputs": ["publishedVersion"]
+    }
+  }
+}
